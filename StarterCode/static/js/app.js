@@ -23,7 +23,6 @@ function init() {
         let dataset = dropdownMenu.property('value');   
         let nameIndex = allNames.indexOf(dataset);  
         console.log(nameIndex)
-        
 
         // collect all data for the samples and use that to get the sample values, otu ids, and otu labels
         const allSamples = data['samples'];
@@ -40,21 +39,11 @@ function init() {
         y = [otuIds[nameIndex].slice(0, 10).map(sample => 'OTU ' + sample.toString()).reverse()];
         text = [otuLabels[nameIndex].slice(0, 10).reverse()];
 
-        // let barData = [{
-        //     type: 'bar',
-        //     x: [sampleValues[nameIndex].slice(0, 10).reverse()],
-        //     y: [otuIds[nameIndex].slice(0, 10).map(sample => 'OTU ' + sample.toString()).reverse()],
-        //     orientation: 'h',
-        //     text: [otuLabels[nameIndex].slice(0, 10).reverse()],
-        //     hoverinfo: 'text'
-        // }];
-
         Plotly.restyle('bar', 'x', x);
         Plotly.restyle('bar', 'y', y);
         Plotly.restyle('bar', 'text', text);
 
-    });
-    
+    });    
   };
 
 dataPromise.then(data => {
@@ -67,32 +56,6 @@ dataPromise.then(data => {
                 .text(name)
                 .attr('value', name)
     });
-
-    
-
-
-    // let dataset = dropdownMenu.property('value');
-    // let nameIndex = allNames.indexOf(dataset);
-    // console.log(nameIndex)
-
-    // collect all data for the samples and use that to get the sample values, otu ids, and otu labels
-    // const allSamples = data['samples'];
-    // const sampleValues = allSamples.map(sample => sample['sample_values']);
-    // const otuIds = allSamples.map(sample => sample['otu_ids']);
-    // const otuLabels = allSamples.map(sample => sample['otu_labels']);
-    
-    // let barData = [{
-    //     type: 'bar',
-    //     x: sampleValues[0].slice(0, 10).reverse(),
-    //     y: otuIds[0].slice(0, 10).map(sample => 'OTU ' + sample.toString()).reverse(),
-    //     orientation: 'h',
-    //     text: otuLabels[0].slice(0, 10).reverse(),
-    //     hoverinfo: 'text'
-    // }];
-
-    // Plotly.newPlot('bar', barData);
-
-
 });
 
 init();
