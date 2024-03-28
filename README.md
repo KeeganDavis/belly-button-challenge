@@ -6,4 +6,4 @@ bootstrap 5.3.2, d3 v7, and plotly are required for this repository
 ## Installation
 Clone the repository: git@github.com:KeeganDavis/belly-button-challenge.git
 ## Usage
-To use the index.html file, open the file in the web browser or visit the GitHub pages address at 
+To use the index.html file, open the file in the web browser or visit the GitHub pages address at https://keegandavis.github.io/belly-button-challenge/
