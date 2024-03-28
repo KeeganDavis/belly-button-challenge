@@ -33,19 +33,21 @@ function init() {
   function optionChanged() {
     dataPromise.then(data => {
         /*
-        function to run everytime the dropdown menu is updated. the bar chart, bubble chart, and demographic info will update 
+        function to run everytime the dropdown menu is updated and once when the webpage loads. the bar chart, bubble chart, and demographic info will update 
         to display the samples for the selected individual
         */
 
         // get all name data
         const allNames = data['names'];
+
         // select the dropdown menu and store the value
         let dropdownMenu = d3.select('#selDataset');
         let dataset = dropdownMenu.property('value');
+
         // find the index where the dropdow value is located in the names array   
         let nameIndex = allNames.indexOf(dataset);  
 
-        // collect all data in arrays for the samples and use that to get the sample values, otu ids, and otu labels
+        // collect all data in arrays for the samples and use that to get an array of arrays containing the sample values, otu ids, and otu labels
         const allSamples = data['samples'];
         const sampleValues = allSamples.map(sample => sample['sample_values']);
         const otuIds = allSamples.map(sample => sample['otu_ids']);
@@ -56,9 +58,9 @@ function init() {
         let y = [];
         let text = [];
 
-        // update the arrays to hold the top 10 OTUs found on the individual using the index
+        // update the arrays to hold the top 10 OTUs found on the individual using the index. Reverse to follow plotly formatting
         x = sampleValues[nameIndex].slice(0, 10).reverse();
-        y = otuIds[nameIndex].slice(0, 10).map(sample => 'OTU ' + sample.toString()).reverse();
+        y = otuIds[nameIndex].slice(0, 10).map(sample => 'OTU ' + sample.toString()).reverse(); // convert OTU number to string and concatenate it w/ OTU label
         text = otuLabels[nameIndex].slice(0, 10).reverse();
 
         // restyle the bar chart with the new individual's stats
@@ -92,6 +94,7 @@ dataPromise.then(data => {
     // get all subject names and the select html element
     const allNames = data['names'];
     let dropdownMenu = d3.select('#selDataset');
+    
     // loop through each name and add an option element with the text and value attribute equal to the name
     allNames.forEach(name => {
         dropdownMenu.append('option')
@@ -113,5 +116,6 @@ dataPromise.then(data => {
     metadataList.append('li').attr('name', 'wfreq')
 });
 
+// run both functions so the default data gets updated w/ the data of the first subject
 init();
 optionChanged();
